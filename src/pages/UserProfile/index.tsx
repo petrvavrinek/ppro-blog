@@ -20,13 +20,15 @@ const UserProfilePage = () => {
 
   return (
     <div className="mx-auto">
-      <Image radius={"full"} src={data?.photo} fallbackSrc="" />
+      <div className="mx-auto w-fit">
+        <Image radius="full" className="max-w-28" src={data?.photo} />
+      </div>
       <h2 className="text-2xl justify-center text-center">{data?.username}</h2>
 
       <div className="w-full mt-2">
-        <div className="w-fit mx-auto">
+        <div className="mx-auto">
           {userPosts.isLoading ? (
-            <CircularProgress />
+            <CircularProgress className="w-fit" />
           ) : (
             <PostList posts={userPosts.data ?? []} />
           )}
