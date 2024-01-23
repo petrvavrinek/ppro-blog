@@ -7,6 +7,7 @@ import Providers from "./providers";
 import LatestPostsPage from "./pages/LatestPosts";
 import PostDetailPage from "./pages/PostDetail";
 import UserProfilePage from "./pages/UserProfile";
+import CreatePostPage from "./pages/CreatePost";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Routes>
           <Route path="/" Component={LatestPostsPage} />
           <Route path="/user/:id" Component={UserProfilePage} />
+          <Route path="/post/create" Component={CreatePostPage} />
           <Route path="/post/:id" Component={PostDetailPage} />
         </Routes>
       </div>
