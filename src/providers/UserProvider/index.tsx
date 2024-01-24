@@ -1,13 +1,13 @@
 import { ApiTokenContext } from "@/contexts/api-token.context";
 import { UserContext } from "@/contexts/user.context";
-import { useApiCall } from "@/hooks/use-api";
+import { useApiSWR } from "@/hooks/use-api";
 import { PropsWithChildren, useContext, useEffect, useState } from "react";
 
 export const UserContextProvider = (props: PropsWithChildren) => {
   const [user, setUser] = useState<User | null>(null);
   const { data: tokenData, clear: clearToken } = useContext(ApiTokenContext);
 
-  const fetchMe = useApiCall<User>(tokenData?.token ? "/user/me" : null, {
+  const fetchMe = useApiSWR<User>(tokenData?.token ? "/user/me" : null, {
     requireAuth: false,
   });
 

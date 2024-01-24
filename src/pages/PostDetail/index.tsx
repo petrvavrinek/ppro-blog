@@ -1,4 +1,4 @@
-import { useApiCall } from "@/hooks/use-api";
+import { useApiSWR } from "@/hooks/use-api";
 import { Avatar, CircularProgress, Divider } from "@nextui-org/react";
 import { useParams } from "react-router-dom";
 import Markdown from "react-markdown";
@@ -6,7 +6,7 @@ import Markdown from "react-markdown";
 const PostDetailPage = () => {
   const params = useParams();
   const postParamId = params["id"];
-  const post = useApiCall<Post>(`/post/${postParamId}`, {
+  const post = useApiSWR<Post>(`/post/${postParamId}`, {
     requireAuth: false,
   });
 

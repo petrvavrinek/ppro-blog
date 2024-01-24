@@ -1,7 +1,6 @@
 import { User } from "@/api";
 import {
   Button,
-  CircularProgress,
   Input,
   Link,
   ModalBody,
@@ -83,13 +82,9 @@ export default function SignUpModalContent(props: Props) {
         <Button color="danger" variant="light" onPress={props.onClose}>
           Close
         </Button>
-        {isFetching ? (
-          <CircularProgress />
-        ) : (
-          <Button color="primary" onPress={onSubmit}>
-            Submit
-          </Button>
-        )}
+        <Button color="primary" onPress={onSubmit} isLoading={isFetching}>
+          Submit
+        </Button>
       </ModalFooter>
     </>
   );

@@ -1,9 +1,9 @@
 import PostList from "@/components/PostList";
-import { useApiCall } from "@/hooks/use-api";
+import { useApiSWR } from "@/hooks/use-api";
 import { CircularProgress, Divider } from "@nextui-org/react";
 
 const LatestPostsPage = () => {
-  const post = useApiCall<Post[]>(`/post/newest`, {
+  const post = useApiSWR<Post[]>(`/post/newest`, {
     requireAuth: false,
   });
 

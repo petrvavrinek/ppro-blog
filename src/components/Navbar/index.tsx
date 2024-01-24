@@ -41,7 +41,9 @@ export default function App() {
           className="sm:hidden"
         />
         <NavbarBrand>
-          <p className="font-bold text-inherit">PPRO</p>
+          <Link href="/" className="font-bold text-inherit">
+            PPRO
+          </Link>
         </NavbarBrand>
       </NavbarContent>
 

@@ -1,15 +1,15 @@
 import PostList from "@/components/PostList";
-import { useApiCall } from "@/hooks/use-api";
+import { useApiSWR } from "@/hooks/use-api";
 import { CircularProgress, Image } from "@nextui-org/react";
 import { useParams } from "react-router-dom";
 
 const UserProfilePage = () => {
   const params = useParams();
   const userParamId = params["id"];
-  const user = useApiCall<User>(`/user/${userParamId}`, {
+  const user = useApiSWR<User>(`/user/${userParamId}`, {
     requireAuth: false,
   });
-  const userPosts = useApiCall<Post[]>(`/user/${userParamId}/post`, {
+  const userPosts = useApiSWR<Post[]>(`/user/${userParamId}/post`, {
     requireAuth: false,
   });
 
