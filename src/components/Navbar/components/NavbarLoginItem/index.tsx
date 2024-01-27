@@ -9,7 +9,7 @@ export const NavbarLoginItem = () => {
 
   return (
     <>
-      <NavbarItem className="hidden lg:flex">
+      <NavbarItem>
         <Button
           as={Link}
           onClick={() => {

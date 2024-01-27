@@ -42,15 +42,14 @@ const PostDetailPage = () => {
         <div>{new Date(data.createdAt).toLocaleString()}</div>
       </div>
 
-      <AuthGuard>
-        <div className="mt-3">
+      <div className="mt-3">
+        <AuthGuard>
           <h2 className="text-xl font-semibold">Write comment</h2>
           <PostCreateComment post={data} onCommentAdded={onCommentAdded} />
-
-          <h2 className="text-xl font-semibold mt-4">Comments</h2>
-          <PostCommentList post={data} prependComments={userComments} />
-        </div>
-      </AuthGuard>
+        </AuthGuard>
+        <h2 className="text-xl font-semibold mt-4">Comments</h2>
+        <PostCommentList post={data} prependComments={userComments} />
+      </div>
     </div>
   );
 };

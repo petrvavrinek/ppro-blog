@@ -15,7 +15,7 @@ function App() {
     <Providers>
       <AppNavbar />
 
-      <div className="container mx-auto max-w-screen-md w-full">
+      <div className="container max-w-screen-md w-full px-4 mx-auto">
         <Routes>
           <Route path="/" Component={LatestPostsPage} />
           <Route path="/user/settings" Component={UserSettingsPage} />
