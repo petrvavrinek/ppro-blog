@@ -8,7 +8,7 @@ export const useFetcher = (token?: string) => {
       },
     };
 
-    return fetch(input, initData).then((res) => res.json());
+    return fetch(input, initData).then((res) => res.json().catch(() => null));
   };
 
   return fetcher;

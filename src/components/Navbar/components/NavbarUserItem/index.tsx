@@ -16,9 +16,14 @@ export default function NavbarUserItem() {
   if (!user) return <></>;
 
   const onAction = (key: Key) => {
-    if (key == "my-profile") {
-      return navigate(`/user/${user.id}`);
-    }
+    const options: Record<string, () => void> = {
+      "my-profile": () => navigate(`/user/${user.id}`),
+      settings: () => navigate(`/user/settings`),
+    };
+    const k = key as string;
+
+    if (!(k in options)) return;
+    options[k]();
   };
 
   return (
@@ -28,6 +33,7 @@ export default function NavbarUserItem() {
           as="button"
           className="transition-transform cursor-pointer"
           name={user.username}
+          avatarProps={{ src: user.photo }}
         />
       </DropdownTrigger>
       <DropdownMenu aria-label="Menu actions" onAction={onAction}>

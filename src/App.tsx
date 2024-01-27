@@ -8,6 +8,7 @@ import LatestPostsPage from "./pages/LatestPosts";
 import PostDetailPage from "./pages/PostDetail";
 import UserProfilePage from "./pages/UserProfile";
 import CreatePostPage from "./pages/CreatePost";
+import UserSettingsPage from "./pages/UserSettings";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <div className="container mx-auto max-w-screen-md w-full">
         <Routes>
           <Route path="/" Component={LatestPostsPage} />
+          <Route path="/user/settings" Component={UserSettingsPage} />
           <Route path="/user/:id" Component={UserProfilePage} />
           <Route path="/post/create" Component={CreatePostPage} />
           <Route path="/post/:id" Component={PostDetailPage} />

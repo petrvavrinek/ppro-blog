@@ -24,7 +24,7 @@ export const useApiSWR = <TResponse>(
   );
 };
 
-type RequestInitModified = Omit<RequestInit, "body"> & { body: any };
+type RequestInitModified = Omit<RequestInit, "body"> & { body?: any };
 
 export const useApiFetch = () => {
   const tokenContext = useContext(ApiTokenContext);
@@ -33,14 +33,23 @@ export const useApiFetch = () => {
     if (!tokenContext.data) throw new Error("Token data is undefined");
 
     const newInit: RequestInit = init ?? {};
+    let hasFormData = false;
 
-    if ("body" in newInit) newInit.body = JSON.stringify(newInit.body);
+    if (newInit) {
+      if ("body" in newInit) {
+        hasFormData = newInit.body instanceof FormData;
+
+        if (!hasFormData) newInit.body = JSON.stringify(newInit.body);
+      }
+    }
 
     if (!newInit.headers) newInit.headers = {};
-    newInit.headers = {
-      ...newInit.headers,
-      "Content-Type": "application/json",
-    };
+    
+    if (!hasFormData)
+      newInit.headers = {
+        ...newInit.headers,
+        "Content-Type": "application/json",
+      };
 
     return fetcher(
       `${import.meta.env.VITE_API_URL}/api${path}`,

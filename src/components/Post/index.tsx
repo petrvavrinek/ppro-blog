@@ -5,8 +5,8 @@ import {
   CardHeader,
   Divider,
   Link,
-  User,
 } from "@nextui-org/react";
+import PostAuthorCard from "../PostAuthorCard";
 
 const Post = (props: { post: Post; className?: string }) => {
   const { post } = props;
@@ -23,11 +23,9 @@ const Post = (props: { post: Post; className?: string }) => {
       <CardBody>{content}</CardBody>
       <Divider />
       <CardFooter className="flex items-center justify-between">
-        <Link href={`/user/${post.author.id}`}>
-          <User name={post.author.username} />
-        </Link>
+        <PostAuthorCard user={post.author} />
         <div className="self-end text-xs">
-          {post.createdAt.toLocaleString()}
+          {new Date(post.createdAt).toLocaleString()}
         </div>
       </CardFooter>
     </Card>

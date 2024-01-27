@@ -14,3 +14,12 @@ type Post = {
   createdAt: string;
   updatedAt: string;
 };
+
+type PostComment = {
+  createdAt: string,
+  updatedAt: string,
+  author: User,
+  post: Post,
+  content: string,
+  id: number
+}
