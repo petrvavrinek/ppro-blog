@@ -3,8 +3,9 @@ import AuthGuard from "@/components/AuthGuard";
 import PostAuthorCard from "@/components/PostAuthorCard";
 import PostCommentList from "@/components/PostCommentList";
 import PostCreateComment from "@/components/PostCreateComment";
+import PostTagList from "@/components/PostTagList";
 import { useApiSWR } from "@/hooks/use-api";
-import { CircularProgress, Divider } from "@nextui-org/react";
+import { Chip, CircularProgress, Divider, Link } from "@nextui-org/react";
 import { useState } from "react";
 import Markdown from "react-markdown";
 import { useParams } from "react-router-dom";
@@ -12,7 +13,7 @@ import { useParams } from "react-router-dom";
 const PostDetailPage = () => {
   const params = useParams();
   const postParamId = params["id"];
-  const post = useApiSWR<Post>(`/post/${postParamId}`, {
+  const post = useApiSWR<PostDynamic>(`/post/${postParamId}`, {
     requireAuth: false,
   });
   const [userComments, setUserComments] = useState<PostComment[]>([]);
@@ -30,10 +31,12 @@ const PostDetailPage = () => {
   return (
     <div className="max-auto">
       <h1 className="text-2xl justify-center text-center">{data?.title}</h1>
+      <PostTagList tags={data.tags} />
       <Divider className="my-3" />
-      <div className="w-full">
+      <div className="w-full min-h-[220px] prose lg:prose-xl dark:prose-invert">
         <Markdown>{data?.content}</Markdown>
       </div>
+
       <Divider className="my-3" />
 
       <div className="w-full flex items-center justify-between">

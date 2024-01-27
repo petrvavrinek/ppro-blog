@@ -5,7 +5,13 @@ type User = {
   photo: string;
 };
 
-type Post = {
+type PostDynamic = PostStatic & {
+  favouriteByUser: boolean;
+  favouriteBy: number;
+  tags: string[];
+};
+
+type PostStatic = {
   id: string;
   slug: string;
   title: string;
@@ -16,10 +22,10 @@ type Post = {
 };
 
 type PostComment = {
-  createdAt: string,
-  updatedAt: string,
-  author: User,
-  post: Post,
-  content: string,
-  id: number
-}
+  createdAt: string;
+  updatedAt: string;
+  author: User;
+  post: Post;
+  content: string;
+  id: number;
+};

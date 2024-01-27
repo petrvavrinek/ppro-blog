@@ -4,7 +4,7 @@ import PostComment from "../PostComment";
 import { useMemo, useState } from "react";
 
 type Props = {
-  post: Post;
+  post: PostStatic;
   prependComments?: PostComment[];
 };
 

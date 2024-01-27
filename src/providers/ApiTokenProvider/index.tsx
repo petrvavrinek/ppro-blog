@@ -9,14 +9,16 @@ export const ApiTokenProvider = (
   const [token, setToken] = useState<
     { token: string; expiresAt: Date } | undefined
   >();
+  const [renderReady, setRenderReady] = useState(false);
 
   useEffect(() => {
     if (!props.save) return;
 
     const token = localStorage.getItem(SaveKey);
-    if (!token) return;
+    if (!token) return setRenderReady(true);
 
     setToken({ token, expiresAt: new Date() });
+    setRenderReady(true);
   }, []);
 
   useEffect(() => {
@@ -39,7 +41,7 @@ export const ApiTokenProvider = (
         clear: clearToken,
       }}
     >
-      {props.children}
+      {renderReady && props.children}
     </ApiTokenContext.Provider>
   );
 };

@@ -34,7 +34,7 @@ const CreatePostPage = () => {
   const onSubmit = async () => {
     setIsFetching(true);
 
-    const data = await fetch<Post>(`/post`, {
+    const data = await fetch<PostStatic>(`/post`, {
       method: "POST",
       body: {
         title,
