@@ -1,5 +1,6 @@
 import { useUser } from "@/hooks/use-user";
 import {
+  Button,
   Link,
   Navbar,
   NavbarBrand,
@@ -12,6 +13,7 @@ import {
 import React from "react";
 import NavbarUserItem from "./components/NavbarUserItem";
 import { NavbarLoginItem } from "./components/NavbarLoginItem";
+import AuthGuard from "../AuthGuard";
 
 type MenuItem = {
   title: string;
@@ -28,8 +30,8 @@ export default function App() {
       href: "/",
     },
     {
-      title: "Most voted posts",
-      href: "/",
+      title: "Most favourite posts",
+      href: "/favourite",
     },
   ];
 
@@ -57,6 +59,9 @@ export default function App() {
         ))}
       </NavbarContent>
       <NavbarContent justify="end">
+        <AuthGuard>
+          <Button size="sm" as={Link} href="/post/create">+</Button>
+        </AuthGuard>
         {user ? <NavbarUserItem /> : <NavbarLoginItem />}
       </NavbarContent>
       <NavbarMenu>

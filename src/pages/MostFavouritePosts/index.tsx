@@ -3,12 +3,13 @@ import { useApiSWR } from "@/hooks/use-api";
 import { CircularProgress, Divider } from "@nextui-org/react";
 import { useSearchParams } from "react-router-dom";
 
-const LatestPostsPage = () => {
+const MostFavouritePostsPage = () => {
   const [searchParams] = useSearchParams();
   const tags = searchParams.get("tags");
 
   const newSearchParams = new URLSearchParams();
   tags && newSearchParams.append("tags", tags);
+  newSearchParams.append("order", "favourite");
 
   const fetchUrl = `/post/newest?${newSearchParams}`;
 
@@ -24,7 +25,7 @@ const LatestPostsPage = () => {
   return (
     <div className="max-auto">
       <h2 className="text-2xl text-center">
-        Latest posts{" "}
+        Most favourite posts{" "}
         {tags && (
           <>
             with tag: <strong>{tags}</strong>
@@ -37,4 +38,4 @@ const LatestPostsPage = () => {
     </div>
   );
 };
-export default LatestPostsPage;
+export default MostFavouritePostsPage;

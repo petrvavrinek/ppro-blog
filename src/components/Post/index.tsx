@@ -1,6 +1,4 @@
-import { usePostUtils } from "@/hooks/use-post-utils";
 import {
-  Button,
   Card,
   CardBody,
   CardFooter,
@@ -8,23 +6,14 @@ import {
   Divider,
   Link,
 } from "@nextui-org/react";
-import { useState } from "react";
 import AuthGuard from "../AuthGuard";
 import PostAuthorCard from "../PostAuthorCard";
+import PostFavouriteButton from "../PostFavouriteButton";
 import PostTagList from "../PostTagList";
 
 const Post = (props: { post: PostDynamic; className?: string }) => {
   const { post } = props;
-  const postUtils = usePostUtils(post);
-  const [isFavourite, setFavourite] = useState<boolean>(post.favouriteByUser);
-
   const content = post.content.substring(0, 300);
-
-  const onFavouriteClick = () => {
-    const newFavourite = !isFavourite;
-    newFavourite ? postUtils?.like() : postUtils?.unlike();
-    setFavourite(newFavourite);
-  };
 
   return (
     <Card className={`max-w-[600px] mx-auto ${props.className}`}>
@@ -43,16 +32,12 @@ const Post = (props: { post: PostDynamic; className?: string }) => {
         <PostAuthorCard user={post.author} />
         <div className="self-end text-xs flex items-center">
           <AuthGuard>
-            <Button
-              size="sm"
-              className="p-1 mr-2"
-              onPress={onFavouriteClick}
-            >
-              {isFavourite ? "Unlike" : "Like"}
-            </Button>
+            <PostFavouriteButton post={post} className="p-1 mr-2" size="sm" />
           </AuthGuard>
-          <div>Liked by {post.favouriteBy} user(s) | {new Date(post.createdAt).toLocaleString()}</div>
-          
+          <div>
+            Liked by {post.favouriteBy} user(s) |{" "}
+            {new Date(post.createdAt).toLocaleString()}
+          </div>
         </div>
       </CardFooter>
     </Card>

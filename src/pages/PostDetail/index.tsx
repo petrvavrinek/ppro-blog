@@ -3,15 +3,18 @@ import AuthGuard from "@/components/AuthGuard";
 import PostAuthorCard from "@/components/PostAuthorCard";
 import PostCommentList from "@/components/PostCommentList";
 import PostCreateComment from "@/components/PostCreateComment";
+import PostFavouriteButton from "@/components/PostFavouriteButton";
 import PostTagList from "@/components/PostTagList";
 import { useApiSWR } from "@/hooks/use-api";
-import { Chip, CircularProgress, Divider, Link } from "@nextui-org/react";
+import { useUser } from "@/hooks/use-user";
+import { Button, CircularProgress, Divider, Link } from "@nextui-org/react";
 import { useState } from "react";
 import Markdown from "react-markdown";
 import { useParams } from "react-router-dom";
 
 const PostDetailPage = () => {
   const params = useParams();
+  const user = useUser();
   const postParamId = params["id"];
   const post = useApiSWR<PostDynamic>(`/post/${postParamId}`, {
     requireAuth: false,
@@ -37,6 +40,25 @@ const PostDetailPage = () => {
         <Markdown>{data?.content}</Markdown>
       </div>
 
+      <Divider className="my-3" />
+      <div className="w-full flex items-center justify-between">
+        <p>Favourite by {data.favouriteBy} users(s)</p>
+
+        <div>
+          <AuthGuard>
+            <PostFavouriteButton post={data} />
+          </AuthGuard>
+          {data.author.id == user?.id && (
+            <Button
+              className="ml-2"
+              as={Link}
+              href={`/post/${data.slug}/update`}
+            >
+              Update
+            </Button>
+          )}
+        </div>
+      </div>
       <Divider className="my-3" />
 
       <div className="w-full flex items-center justify-between">

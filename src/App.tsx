@@ -9,6 +9,8 @@ import PostDetailPage from "./pages/PostDetail";
 import UserProfilePage from "./pages/UserProfile";
 import CreatePostPage from "./pages/CreatePost";
 import UserSettingsPage from "./pages/UserSettings";
+import UpdatePostPage from "./pages/UpdatePost";
+import MostFavouritePostsPage from "./pages/MostFavouritePosts";
 
 function App() {
   return (
@@ -18,9 +20,11 @@ function App() {
       <div className="container max-w-screen-md w-full px-4 mx-auto">
         <Routes>
           <Route path="/" Component={LatestPostsPage} />
+          <Route path="/favourite" Component={MostFavouritePostsPage} />
           <Route path="/user/settings" Component={UserSettingsPage} />
           <Route path="/user/:id" Component={UserProfilePage} />
           <Route path="/post/create" Component={CreatePostPage} />
+          <Route path="/post/:id/update" Component={UpdatePostPage} />
           <Route path="/post/:id" Component={PostDetailPage} />
         </Routes>
       </div>
