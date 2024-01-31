@@ -4,7 +4,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 
 type Props = {
-  post: Post;
+  post: PostStatic;
   onCommentAdded: (comment: PostComment) => void;
 };
 

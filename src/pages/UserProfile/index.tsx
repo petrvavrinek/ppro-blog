@@ -9,7 +9,7 @@ const UserProfilePage = () => {
   const user = useApiSWR<User>(`/user/${userParamId}`, {
     requireAuth: false,
   });
-  const userPosts = useApiSWR<Post[]>(`/user/${userParamId}/post`, {
+  const userPosts = useApiSWR<PostDynamic[]>(`/user/${userParamId}/post`, {
     requireAuth: false,
   });
 
