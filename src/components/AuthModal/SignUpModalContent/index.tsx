@@ -8,6 +8,7 @@ import {
   ModalHeader,
 } from "@nextui-org/react";
 import { useState } from "react";
+import { Resolver, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 interface Props {
@@ -16,17 +17,44 @@ interface Props {
   onSignInClick: () => void;
 }
 
+type FormValues = {
+  username: string;
+  password: string;
+  password2: string;
+};
+
+const resolver: Resolver<FormValues> = async (values) => {
+  return {
+    values: values.username ? values : {},
+    errors: !values.username
+      ? {
+          username: {
+            type: "required",
+            message: "This is required.",
+          },
+        }
+      : {},
+  };
+};
+
 export default function SignUpModalContent(props: Props) {
   const [isFetching, setIsFetching] = useState(false);
 
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [password2, setPassword2] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>({ resolver });
 
-  const onSubmit = async () => {
+  const onSubmit = async (data: {
+    username: string;
+    password: string;
+    password2: string;
+  }) => {
+    if (data.password != data.password2) return;
+
     setIsFetching(true);
-    const result = await User.register(username, password);
+    const result = await User.register(data.username, data.password);
     setIsFetching(false);
 
     if (!result.ok)
@@ -37,55 +65,49 @@ export default function SignUpModalContent(props: Props) {
 
   return (
     <>
-      <ModalHeader className="flex flex-col gap-1">Sign up</ModalHeader>
-      <ModalBody>
-        <div className="flex flex-col w-full flex-wrap md:flex-nowrap gap-4">
-          <Input
-            value={username}
-            onValueChange={(e) => setUsername(e)}
-            type="text"
-            label="Username"
-            placeholder="Enter your new username"
-          />
-          <Input
-            value={email}
-            onValueChange={(e) => setEmail(e)}
-            type="email"
-            label="Email"
-            placeholder="Enter your email"
-          />
-          <Input
-            value={password}
-            onValueChange={(e) => setPassword(e)}
-            type="password"
-            label="Password"
-            placeholder="Enter your password"
-          />
-          <Input
-            value={password2}
-            onValueChange={(e) => setPassword2(e)}
-            type="password"
-            label="Password again"
-            placeholder="Enter your password again"
-          />
-        </div>
-      </ModalBody>
-      <ModalFooter>
-        <Link
-          className="mr-auto"
-          color="primary"
-          href="#"
-          onClick={props.onSignInClick}
-        >
-          Already have account?
-        </Link>
-        <Button color="danger" variant="light" onPress={props.onClose}>
-          Close
-        </Button>
-        <Button color="primary" onPress={onSubmit} isLoading={isFetching}>
-          Submit
-        </Button>
-      </ModalFooter>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <ModalHeader className="flex flex-col gap-1">Sign up</ModalHeader>
+        <ModalBody>
+          <div className="flex flex-col w-full flex-wrap md:flex-nowrap gap-4">
+            <Input
+              {...register("username")}
+              type="text"
+              label="Username"
+              placeholder="Enter your new username"
+              isInvalid={!!errors.username}
+              errorMessage={errors.username?.message}
+            />
+            <Input
+              {...register("password")}
+              type="password"
+              label="Password"
+              placeholder="Enter your password"
+            />
+            <Input
+              {...register("password2")}
+              type="password"
+              label="Password again"
+              placeholder="Enter your password again"
+            />
+          </div>
+        </ModalBody>
+        <ModalFooter>
+          <Link
+            className="mr-auto"
+            color="primary"
+            href="#"
+            onClick={props.onSignInClick}
+          >
+            Already have account?
+          </Link>
+          <Button color="danger" variant="light" onPress={props.onClose}>
+            Close
+          </Button>
+          <Button type="submit" isLoading={isFetching}>
+            Submit
+          </Button>
+        </ModalFooter>
+      </form>
     </>
   );
 }

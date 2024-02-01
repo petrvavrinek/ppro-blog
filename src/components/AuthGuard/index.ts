@@ -1,4 +1,4 @@
-import { ApiTokenContext } from "@/contexts/api-token.context";
+import { UserContext } from "@/contexts/user.context";
 import { PropsWithChildren, useContext } from "react";
 
 type Props = {
@@ -6,8 +6,8 @@ type Props = {
 } & PropsWithChildren;
 
 const AuthGuard = (props: Props) => {
-  const tokenProvider = useContext(ApiTokenContext);
-  return tokenProvider.data ? props.children : props.fallback;
+  const userProvider = useContext(UserContext);
+  return userProvider?.user ? props.children : props.fallback;
 };
 
 export default AuthGuard;
