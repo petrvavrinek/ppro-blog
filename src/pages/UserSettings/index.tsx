@@ -20,8 +20,9 @@ const UserSettingsPage = () => {
 
   const onPhotoSelect = async (e: ChangeEvent<HTMLInputElement>) => {
     const files = (e.target as HTMLInputElement).files;
-    if (!files) return;
+    if (!files?.length) return;
     const [file] = files;
+    if (!file) return;
 
     setPhoto(file);
     const url = URL.createObjectURL(file);
@@ -42,11 +43,14 @@ const UserSettingsPage = () => {
         body: data,
         method: "PUT",
       });
-      
+
       dataResult.photo = photoUrl;
     }
 
-    if (dataResult) setUser(dataResult);
+    if (dataResult) {
+      setUser(dataResult);
+      navigate(`/user/${user.id}`);
+    }
   };
 
   return (
