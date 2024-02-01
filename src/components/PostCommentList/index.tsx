@@ -28,15 +28,22 @@ const PostCommentList = (props: Props) => {
   if (isLoading || isValidating) return <CircularProgress />;
   if (!data) return <>Could not fetch comments</>;
 
-  return comments.map((e) => (
-    <PostComment
-      key={`comment-${e.id}`}
-      postComment={e}
-      onDelete={() => {
-        setDeletedCommentsIds([...deletedCommentIds, e.id]);
-      }}
-    />
-  ));
+  if(comments.length == 0) return <></>;
+
+  return (
+    <>
+      <h2 className="text-xl font-semibold mt-4">Comments</h2>{" "}
+      {comments.map((e) => (
+        <PostComment
+          key={`comment-${e.id}`}
+          postComment={e}
+          onDelete={() => {
+            setDeletedCommentsIds([...deletedCommentIds, e.id]);
+          }}
+        />
+      ))}
+    </>
+  );
 };
 
 export default PostCommentList;

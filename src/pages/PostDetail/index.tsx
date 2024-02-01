@@ -72,7 +72,6 @@ const PostDetailPage = () => {
           <h2 className="text-xl font-semibold">Write comment</h2>
           <PostCreateComment post={data} onCommentAdded={onCommentAdded} />
         </AuthGuard>
-        <h2 className="text-xl font-semibold mt-4">Comments</h2>
         <PostCommentList post={data} prependComments={userComments} />
       </div>
     </div>

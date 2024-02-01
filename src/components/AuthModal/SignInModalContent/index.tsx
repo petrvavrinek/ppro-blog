@@ -39,9 +39,9 @@ export default function SignInModalContent(props: Props) {
       <ModalBody>
         <div className="flex flex-col w-full flex-wrap md:flex-nowrap gap-4">
           <Input
-            type="email"
-            label="Email"
-            placeholder="Enter your email"
+            type="username"
+            label="username"
+            placeholder="Enter your username"
             onValueChange={(e) => setUsername(e)}
           />
           <Input
