@@ -12,6 +12,7 @@ const UserSettingsPage = () => {
     navigate("/");
     return <></>;
   }
+  const [photoUrl, setPhotoUrl] = useState<string>(user.photo);
   const [photo, setPhoto] = useState<File>();
   const [userData, setUserData] = useState<Partial<User>>(user);
 
@@ -23,6 +24,8 @@ const UserSettingsPage = () => {
     const [file] = files;
 
     setPhoto(file);
+    const url = URL.createObjectURL(file);
+    setPhotoUrl(url);
   };
 
   const onSubmit = async () => {
@@ -39,8 +42,8 @@ const UserSettingsPage = () => {
         body: data,
         method: "PUT",
       });
-      const url = URL.createObjectURL(photo);
-      dataResult.photo = url;
+      
+      dataResult.photo = photoUrl;
     }
 
     if (dataResult) setUser(dataResult);
@@ -51,7 +54,7 @@ const UserSettingsPage = () => {
       <div className="mx-auto w-fit mb-2">
         <label htmlFor="photo">
           <Image
-            src={user.photo}
+            src={photoUrl}
             radius="full"
             fallbackSrc="https://via.placeholder.com/250x250"
             width={250}
